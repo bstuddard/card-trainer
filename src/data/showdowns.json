@@ -72,6 +72,276 @@
         "reasoning": "Pot odds: you risk 25 to win the 100 pot plus their 25 = 125. You need 25 / (25 + 125) = 17% to break even. Your equity: 9 spades complete your flush. The 'rule of 2' estimates one-card equity as outs x 2 = 18%; the exact figure is 9 / 46 unseen cards = 20%."
       },
       "explanation": "20% (even the 18% estimate) clears the 17% you need, so call. The tiny bet gives you a great price to chase, and your two overcards (K, Q) are extra outs on top that make the call even clearer."
+    },
+    {
+      "id": "river-call-top-pair-half-pot",
+      "title": "Top pair facing a half-pot bet",
+      "street": "river",
+      "board": ["Kh", "7d", "2c", "9s", "Jd"],
+      "heroHand": ["Kc", "Qc"],
+      "pot": 100,
+      "bet": 50,
+      "situation": "You have top pair (kings) with a queen kicker on a dry rainbow board. Villain fires a half-pot bet — 50 into 100. The board missed most flush and straight draws. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 42,
+        "reasoning": "Pot odds: risk 50 to win 100 + 50 + 50 = 200. Required equity = 50 / 200 = 25%. Range read: villain value bets ~18 combos (sets, two pair, KJ), bluffs ~13 combos (missed Ax draws, QT, gutshots). Your equity = 13 / (13 + 18) = 42%."
+      },
+      "explanation": "42% comfortably clears the 25% required. A half-pot bet only needs you to be right one time in four — top pair on a dry board easily crosses that bar. Villain's range has plenty of busted draws that missed the run-out."
+    },
+    {
+      "id": "river-call-second-pair-small-bet",
+      "title": "Second pair vs a small bet",
+      "street": "river",
+      "board": ["As", "8d", "3c", "Kh", "2s"],
+      "heroHand": ["8s", "7s"],
+      "pot": 120,
+      "bet": 40,
+      "situation": "You have second pair (eights) on a board with two broadway cards. Villain makes a small 40-into-120 stab. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 20,
+        "yourEquityPct": 28,
+        "reasoning": "Pot odds: risk 40 to win 120 + 40 + 40 = 200. Required equity = 40 / 200 = 20%. Range read: villain has ~15 value combos (AK, A8, AA, KK, 88) but also ~6 pure bluffs (QJ, JT, missed gutshots). Equity = 6 / (6 + 15) = 28%."
+      },
+      "explanation": "28% beats the 20% threshold. Small bets are cheap to call — a sizing this modest requires villain to be bluffing less than 1-in-5 times to make the call unprofitable, which is a very tight range. Call and show down your eights."
+    },
+    {
+      "id": "river-call-top-pair-pot-sized-close",
+      "title": "Top pair vs a pot-sized bet (close spot)",
+      "street": "river",
+      "board": ["Qc", "Js", "6d", "9h", "2c"],
+      "heroHand": ["Qh", "Ts"],
+      "pot": 80,
+      "bet": 80,
+      "situation": "You have top pair (queens) with a ten kicker. Villain fires a pot-sized bet — 80 into 80. Your ten also blocks some straight combinations. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 33,
+        "yourEquityPct": 36,
+        "reasoning": "Pot odds: risk 80 to win 80 + 80 + 80 = 240. Required equity = 80 / 240 = 33%. Range read: villain has ~14 value combos (QQ, JJ, 99, KT straights) and ~8 bluffs (A8, K8, missed flush draws). Your ten blocks some KT combos. Equity = 8 / (8 + 14) = 36%."
+      },
+      "explanation": "36% just edges out the 33% required for a pot-sized bet. Your T blocker slightly shrinks villain's KT straight combos, nudging you above breakeven. This is deliberately thin — pot-sized bets demand near a third of the pot in equity, which top pair barely achieves here."
+    },
+    {
+      "id": "river-call-full-house-75pct",
+      "title": "Full house facing a 75% pot bet",
+      "street": "river",
+      "board": ["Jd", "8s", "3h", "7c", "Js"],
+      "heroHand": ["Jh", "8d"],
+      "pot": 100,
+      "bet": 75,
+      "situation": "You flopped two pair and now have a full house — jacks full of eights — on the river. Villain bets 75 into 100. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 30,
+        "yourEquityPct": 78,
+        "reasoning": "Pot odds: risk 75 to win 100 + 75 + 75 = 250. Required equity = 75 / 250 = 30%. Range read: villain can only beat you with 77, 33 (two full house combos), or 88 quads — roughly 5 combos. You beat villain's entire bluffing range and most value. Equity ≈ 78%."
+      },
+      "explanation": "78% is more than double the 30% required. A full house is a value hand, not a bluff-catcher. Even a 75% pot bet only demands 30% equity — your full house clears that with ease. Raise or call, but never fold."
+    },
+    {
+      "id": "river-call-flush-overbet",
+      "title": "Flush vs a 2x pot overbet",
+      "street": "river",
+      "board": ["Ah", "9h", "5c", "2h", "Kd"],
+      "heroHand": ["Th", "8h"],
+      "pot": 60,
+      "bet": 120,
+      "situation": "You rivered a ten-high flush. Villain shoves 120 into a pot of 60 — a massive 2x pot overbet. This polarizes their range: they have a better flush or total air. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 40,
+        "yourEquityPct": 44,
+        "reasoning": "Pot odds: risk 120 to win 60 + 120 + 120 = 300. Required equity = 120 / 300 = 40%. Range read: villain's value is ~10 higher-heart combos (Jh+, Qh+, Kh combos) and bluffs are ~8 missed straight draws (QJ, JT, T7). Equity = 8 / (8 + 10) = 44%."
+      },
+      "explanation": "44% narrowly clears the 40% that a 2x overbet demands. Overbets polarize ranges — villain has either a better flush or air. A ten-high flush beats all the air combos and a slice of villain's weaker heart holdings, so the call just sneaks into profitable territory."
+    },
+    {
+      "id": "river-call-overpair-dry-board",
+      "title": "Overpair on a dry board",
+      "street": "river",
+      "board": ["8c", "5s", "2d", "Jh", "3s"],
+      "heroHand": ["Qh", "Qd"],
+      "pot": 100,
+      "bet": 50,
+      "situation": "You have queens — an overpair — on a very low, dry board. Villain bets half pot — 50 into 100. No flush or straight got there; the board is as dry as it gets. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 50,
+        "reasoning": "Pot odds: risk 50 to win 100 + 50 + 50 = 200. Required equity = 50 / 200 = 25%. Range read: villain has ~12 value combos (sets, J3, A3) but ~12 bluffs (AK/AT/KT missed overcards, 64/46 missed gutshots). QQ beats all bluffs. Equity = 12 / (12 + 12) = 50%."
+      },
+      "explanation": "50% is double the 25% required. On a dry low board villain has many missed overcards and gutshots in their range. An overpair is not a bluff-catcher here — it's a strong made hand that profits from calling often."
+    },
+    {
+      "id": "river-call-middle-pair-small-bet",
+      "title": "Middle pair facing a tiny stab",
+      "street": "river",
+      "board": ["Ad", "Ks", "9c", "4h", "7s"],
+      "heroHand": ["9d", "8d"],
+      "pot": 150,
+      "bet": 50,
+      "situation": "You have middle pair (nines) on a board with two big broadway overcards. Villain makes a small 50-into-150 probe on the river. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 20,
+        "yourEquityPct": 26,
+        "reasoning": "Pot odds: risk 50 to win 150 + 50 + 50 = 250. Required equity = 50 / 250 = 20%. Range read: villain has ~16 value combos (AK, A9, K9, AA, KK, 99) but also ~6 pure air bluffs (QJ, JT, 65, missed gutshots). Equity = 6 / (6 + 16) = 27%."
+      },
+      "explanation": "27% beats the 20% threshold. Small bets set a low bar — villain can only make this bet unprofitable if they bluff less than 1-in-4 times, which is extremely tight. Even middle pair clears a 20% equity requirement when villain's sizing is this small."
+    },
+    {
+      "id": "river-fold-ace-high-straight-board",
+      "title": "Ace-high on a four-straight board",
+      "street": "river",
+      "board": ["Kh", "Js", "9d", "2c", "Ts"],
+      "heroHand": ["Ad", "6c"],
+      "pot": 100,
+      "bet": 100,
+      "situation": "You have ace-high — no pair, no draw. The river completed a four-card straight (K-Q-J-T or J-T-9-8 type). Villain shoves a pot-sized bet. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 33,
+        "yourEquityPct": 12,
+        "reasoning": "Pot odds: risk 100 to win 100 + 100 + 100 = 300. Required equity = 100 / 300 = 33%. Range read: this runout heavily favors straights (KQJ9, QJT9, etc.), plus villain has pairs and two pairs. Ace-high only beats pure bluffs (~4 combos). Villain has ~28 value combos. Equity = 4 / (4 + 28) = 12%."
+      },
+      "explanation": "12% is far below the 33% a pot-sized bet demands. A four-straight board is a nightmare for unpaired hands — villain's range is loaded with made straights, two pairs, and sets. Ace-high has virtually no showdown value here. Fold and save your stack."
+    },
+    {
+      "id": "river-fold-second-pair-big-bet",
+      "title": "Second pair vs a 75% pot bet on a paired ace",
+      "street": "river",
+      "board": ["Ac", "Kd", "9s", "5h", "Ad"],
+      "heroHand": ["9d", "8c"],
+      "pot": 120,
+      "bet": 90,
+      "situation": "You have second pair (nines) but the ace paired on the river. Villain bets 75% of the pot — 90 into 120. Aces pairing means villain's trips combos just got stronger. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 30,
+        "yourEquityPct": 18,
+        "reasoning": "Pot odds: risk 90 to win 120 + 90 + 90 = 300. Required equity = 90 / 300 = 30%. Range read: villain has ~18 value combos (trip aces, AK, A9, KK, 99) and only ~4 bluffs (QJ, JT missed draws). Equity = 4 / (4 + 18) = 18%."
+      },
+      "explanation": "18% misses the 30% required. A paired ace board devastates second pair — villain's range is dense with trips, two pair, and strong top pairs. A 75% pot bet at this texture is rarely a bluff. Nines cannot beat enough of this range to justify the call."
+    },
+    {
+      "id": "river-fold-missed-straight-draw",
+      "title": "Bricked straight draw on the river",
+      "street": "river",
+      "board": ["Js", "Tc", "8d", "3h", "2s"],
+      "heroHand": ["Qd", "9s"],
+      "pot": 80,
+      "bet": 80,
+      "situation": "You had an open-ended straight draw on the flop but both the turn and river missed. You're left with queen-high, no pair. Villain fires a pot-sized bet. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 33,
+        "yourEquityPct": 8,
+        "reasoning": "Pot odds: risk 80 to win 80 + 80 + 80 = 240. Required equity = 80 / 240 = 33%. Range read: queen-high beats only pure bluffs (~3 combos of total air). Villain has ~33 combos of value (pairs, two pairs, straights on this connected board). Equity = 3 / (3 + 33) = 8%."
+      },
+      "explanation": "8% is nowhere near the 33% required. Missed draws have almost no showdown value on the river — your queen-high loses to any pair, any two pair, and any made straight. Even if villain over-bluffs, the equity gap is too large to overcome."
+    },
+    {
+      "id": "river-fold-bottom-pair-overbet",
+      "title": "Bottom pair facing a 2x pot overbet",
+      "street": "river",
+      "board": ["Ah", "Qs", "7d", "Kc", "5s"],
+      "heroHand": ["5d", "4d"],
+      "pot": 50,
+      "bet": 100,
+      "situation": "You have bottom pair (fives) on a board with Ace, King, Queen — three of the top five cards. Villain shoves a 2x pot overbet. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 40,
+        "yourEquityPct": 14,
+        "reasoning": "Pot odds: risk 100 to win 50 + 100 + 100 = 250. Required equity = 100 / 250 = 40%. Range read: AKQ board means villain has ~28 value combos (AQ, AK, KQ, AA, KK, QQ, K5, A5) versus only ~4 total-air bluffs. Equity = 4 / (4 + 28) = 14%."
+      },
+      "explanation": "14% falls far short of the 40% a 2x overbet requires. Overbets on broadway boards are heavily weighted toward value — any broadway combination destroys bottom pair. Bottom pair cannot beat enough of this range, and the huge bet size demands even more equity than normal."
+    },
+    {
+      "id": "river-fold-top-pair-weak-straight-board",
+      "title": "Top pair on a four-straight runout",
+      "street": "river",
+      "board": ["Kd", "Ts", "9c", "Jh", "8s"],
+      "heroHand": ["Ks", "3c"],
+      "pot": 100,
+      "bet": 75,
+      "situation": "You have top pair (kings) with a weak kicker on a four-card straight board. Any queen or seven completes a straight, and the board has connected cards. Villain bets 75 into 100. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 30,
+        "yourEquityPct": 21,
+        "reasoning": "Pot odds: risk 75 to win 100 + 75 + 75 = 250. Required equity = 75 / 250 = 30%. Range read: connected board gives villain many straights (QJ, Q9, J7, 87) plus two pairs (KT, KJ, K9, TJ). Kings with a 3 kicker loses to ~26 combos and only beats ~7 bluffs. Equity = 7 / (7 + 26) = 21%."
+      },
+      "explanation": "21% falls short of the 30% required. On a fully connected runout, one pair is routinely crushed. The board texture shifts so much equity to villain's range of straights and two pairs that top pair with a weak kicker simply can't call profitably. Fold."
+    },
+    {
+      "id": "river-fold-missed-flush-ace-high",
+      "title": "Missed nut flush draw — ace-high",
+      "street": "river",
+      "board": ["Kd", "8c", "5c", "2h", "Js"],
+      "heroHand": ["Ac", "Qc"],
+      "pot": 100,
+      "bet": 50,
+      "situation": "You had the nut flush draw but the river bricked. You're left with ace-queen high, no pair. Villain fires a half-pot bet. Your ace is still a blocker to top pair, but you have no showdown value. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 17,
+        "reasoning": "Pot odds: risk 50 to win 100 + 50 + 50 = 200. Required equity = 50 / 200 = 25%. Range read: ace-high beats only ~5 pure-air bluffs (76, 97, QT gutshots that also missed). Villain has ~24 value combos (KQ, KJ, K8, K5, 88, 55, JJ). Equity = 5 / (5 + 24) = 17%."
+      },
+      "explanation": "17% doesn't clear the 25% required even for a half-pot bet. A missed flush draw is essentially nothing at showdown — it only beats pure bluffs. While a half-pot bet is cheap, villain still needs to be bluffing more than 1-in-4 times for a call to be profitable, which isn't realistic here."
+    },
+    {
+      "id": "river-fold-third-pair-broadway-board",
+      "title": "Third pair on a broadway-heavy board",
+      "street": "river",
+      "board": ["As", "Kc", "Qd", "7h", "3s"],
+      "heroHand": ["7d", "6d"],
+      "pot": 120,
+      "bet": 60,
+      "situation": "You have third pair (sevens) on a board showing Ace, King, Queen. Villain bets 60 into 120. Most of villain's range connected with this high-card board. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 15,
+        "reasoning": "Pot odds: risk 60 to win 120 + 60 + 60 = 240. Required equity = 60 / 240 = 25%. Range read: villain has ~22 value combos connecting with AKQ (AK, AQ, KQ, AA, KK, QQ, A7, K7) versus ~4 pure bluff combos (J9, T8 missed draws). Equity = 4 / (4 + 22) = 15%."
+      },
+      "explanation": "15% is well below the 25% threshold. An AKQ board interacts with nearly every strong hand in villain's preflop range. Sevens are third pair — your hand beats almost nothing of note. Even the cheap price of a half-pot bet requires too much equity for this weak holding."
+    },
+    {
+      "id": "river-fold-overpair-four-flush-board",
+      "title": "Overpair on a four-flush board (close fold)",
+      "street": "river",
+      "board": ["5h", "8h", "Kh", "2h", "Ad"],
+      "heroHand": ["Qs", "Qd"],
+      "pot": 100,
+      "bet": 100,
+      "situation": "You have pocket queens — an overpair — but four hearts have come in and you hold no heart. Villain shoves a pot-sized bet. Any heart in villain's hand gives them a flush. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 33,
+        "yourEquityPct": 27,
+        "reasoning": "Pot odds: risk 100 to win 100 + 100 + 100 = 300. Required equity = 100 / 300 = 33%. Range read: villain has ~18 flush combos (any heart combination), plus A2/A5/A8 two pair (~6 combos). Bluffs are ~9 combos (JT, 97 missed straights, pocket pairs with no heart). Equity = 9 / (9 + 24) = 27%."
+      },
+      "explanation": "27% just misses the 33% required. A four-flush board fundamentally changes hand values — your overpair is now nearly a bluff-catcher, and it's not a good one. Any heart defeats you, and villain's pot-sized bet is weighted toward flushes. This is a close fold that tests whether you recognize board-texture shifts in equity."
     }
   ]
 }

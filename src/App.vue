@@ -2,24 +2,37 @@
 import { computed, reactive, ref } from 'vue'
 import PreflopDrill from './components/PreflopDrill.vue'
 import ShowdownDrill from './components/ShowdownDrill.vue'
+import OddsDrill from './components/OddsDrill.vue'
+import EquityDrill from './components/EquityDrill.vue'
+import RangeChart from './components/RangeChart.vue'
 
-type Mode = 'steal' | 'mid' | 'showdown'
+type Mode = 'steal' | 'mid' | 'showdown' | 'odds' | 'equity' | 'ranges'
 
+// Row 1 — classic drills; Row 2 — new tools (3-col grid auto-creates 2 rows)
 const MODES: { id: Mode; label: string; sub: string }[] = [
-  { id: 'steal', label: 'Steal seat', sub: 'Open wide' },
-  { id: 'mid', label: 'Middle seat', sub: 'Open tight' },
-  { id: 'showdown', label: 'Heads-up', sub: 'Turn / river' },
+  { id: 'steal',    label: 'Steal seat',  sub: 'Open wide'    },
+  { id: 'mid',      label: 'Middle seat', sub: 'Open tight'   },
+  { id: 'showdown', label: 'Heads-up',    sub: 'Turn/river'   },
+  { id: 'odds',     label: 'Pot odds',    sub: 'Break-even %' },
+  { id: 'equity',   label: 'Equity',      sub: 'Count outs'   },
+  { id: 'ranges',   label: 'Ranges',      sub: 'By position'  },
 ]
+
+const QUIZ_MODES: Mode[] = ['steal', 'mid', 'showdown', 'odds']
 
 const mode = ref<Mode>('steal')
 
 const tally = reactive<Record<Mode, { correct: number; total: number }>>({
-  steal: { correct: 0, total: 0 },
-  mid: { correct: 0, total: 0 },
+  steal:    { correct: 0, total: 0 },
+  mid:      { correct: 0, total: 0 },
   showdown: { correct: 0, total: 0 },
+  odds:     { correct: 0, total: 0 },
+  equity:   { correct: 0, total: 0 },
+  ranges:   { correct: 0, total: 0 },
 })
-const currentTally = computed(() => tally[mode.value])
 
+const isQuiz = computed(() => QUIZ_MODES.includes(mode.value))
+const currentTally = computed(() => tally[mode.value])
 const accuracy = computed(() => {
   const t = currentTally.value
   return t.total ? Math.round((t.correct / t.total) * 100) : 0
@@ -43,6 +56,7 @@ function handleScore(correct: boolean) {
       <p class="head__sub">Preflop &amp; heads-up trainer</p>
     </header>
 
+    <!-- 3-column tab grid — 6 modes create 2 rows automatically -->
     <nav class="tabs" role="tablist">
       <button
         v-for="m in MODES"
@@ -58,22 +72,31 @@ function handleScore(correct: boolean) {
       </button>
     </nav>
 
+    <!-- Tally row: score for quiz modes, descriptive label for reference modes -->
     <div class="tally">
-      <span class="tally__score">{{ currentTally.correct }} / {{ currentTally.total }}</span>
-      <span class="tally__pct" v-if="currentTally.total">{{ accuracy }}% this session</span>
-      <span class="tally__pct" v-else>start a hand below</span>
+      <template v-if="isQuiz">
+        <span class="tally__score">{{ currentTally.correct }} / {{ currentTally.total }}</span>
+        <span class="tally__pct" v-if="currentTally.total">{{ accuracy }}% this session</span>
+        <span class="tally__pct" v-else>start a hand below</span>
+      </template>
+      <template v-else-if="mode === 'equity'">
+        <span class="tally__pct">mental drill — no score</span>
+      </template>
+      <template v-else>
+        <span class="tally__pct">visual reference</span>
+      </template>
     </div>
 
+    <!-- Drill panels -->
     <PreflopDrill
-      v-if="mode !== 'showdown'"
+      v-if="mode === 'steal' || mode === 'mid'"
       :lane-id="mode"
       @score="handleScore"
     />
-
-    <ShowdownDrill
-      v-else
-      @score="handleScore"
-    />
+    <ShowdownDrill v-else-if="mode === 'showdown'" @score="handleScore" />
+    <OddsDrill     v-else-if="mode === 'odds'"     @score="handleScore" />
+    <EquityDrill   v-else-if="mode === 'equity'" />
+    <RangeChart    v-else-if="mode === 'ranges'" />
 
     <footer class="foot">
       Strength = all-in equity vs a random hand · ranges are approximations for training, not a live solver.
@@ -122,7 +145,7 @@ function handleScore(correct: boolean) {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 10px 6px;
+  padding: 9px 6px;
   border-radius: 10px;
   border: 1px solid var(--color-line);
   background: var(--color-surface);
@@ -137,13 +160,13 @@ function handleScore(correct: boolean) {
   box-shadow: 0 0 0 1px var(--color-line-gold) inset;
 }
 .tab__label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
 }
 .tab--on .tab__label { color: var(--color-gold-soft); }
 .tab__sub {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 9px;
   letter-spacing: 0.05em;
   color: var(--color-muted-2);
 }
