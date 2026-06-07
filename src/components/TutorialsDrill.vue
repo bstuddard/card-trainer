@@ -205,6 +205,39 @@ const ARTICLES: Article[] = [
       },
     ],
   },
+  {
+    id: 'made-hand-equity',
+    title: 'How Strong Is Your Made Hand?',
+    teaser: 'Outs are for draws. Once you have made a hand, you need a different yardstick.',
+    sections: [
+      {
+        heading: 'Made hands vs draws',
+        items: [
+          'A draw has zero outs once it gets there — it is now a made hand, judged on how often it wins, not on cards still to come.',
+          'The Rule of 2/4 estimates a draw\'s equity. It tells you nothing about a hand that is already complete.',
+          'For made hands, think in tiers: roughly how often does this beat a random opponent who calls you down?',
+        ],
+      },
+      {
+        heading: 'Rough equity by hand class',
+        items: [
+          'Quads / full house: ~95% — essentially the nuts. Bet every street.',
+          'Flush / straight: ~85% — strong, but two-suited or paired boards can beat you.',
+          'Three of a kind: ~80% — dominant against pairs and draws.',
+          'Two pair: ~70% — beats every single pair, loses to sets and completed draws.',
+          'One pair: ~55% — decent, fragile. Top pair is far stronger than a low pair.',
+        ],
+      },
+      {
+        heading: 'Why a flat number lies',
+        items: [
+          'A made flush and a weak pair are not the same hand — treating both as "I am ahead" is the classic beginner leak.',
+          'These tiers are estimates, not solver output. They assume a single opponent calling down a normal range.',
+          'Use them to size bets: the higher your tier, the thinner the value you can extract.',
+        ],
+      },
+    ],
+  },
 ]
 
 const selected = ref<Article | null>(null)
