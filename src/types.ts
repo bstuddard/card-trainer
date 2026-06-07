@@ -41,7 +41,7 @@ export interface PreflopSpot {
 
 export type PreflopAction = 'Open' | 'Fold'
 
-// ----- Heads-up showdown puzzles -------------------------------------------
+// ----- Scenarios (GTO spots) -----------------------------------------------
 
 export interface ShowdownPuzzle {
   id: string
@@ -49,31 +49,22 @@ export interface ShowdownPuzzle {
   street: 'turn' | 'river'
   board: string[] // e.g. ["Kh","8d","3c","6s","2h"]
   heroHand: string[] // e.g. ["Ac","Kc"]
-  /** Money already in the middle before villain's bet. */
   pot: number
-  /** Size of the bet/shove hero faces. */
   bet: number
-  situation: string // plain-language setup
-  actions: string[] // allowed buttons, always includes "Fold"
-  correct: string // the correct action
-  /** The numbers behind the answer — all shown to the user. */
+  situation: string
+  actions: string[]
+  correct: string
   math: {
-    requiredEquityPct: number // pot odds: equity needed to call
-    yourEquityPct: number // your hand's equity vs villain's assumed range
-    reasoning: string // how the combos / outs were counted
+    requiredEquityPct: number
+    yourEquityPct: number
+    reasoning: string
   }
   explanation: string
-}
-
-// ----- Session (in-memory only; no persistence by design) -------------------
-
-export interface LaneTally {
-  correct: number
-  total: number
-}
-
-export type Verdict = {
-  correct: boolean
-  chosen: string
-  answer: string
+  /** GTO analysis — bluff ratios, concept label, key insight for this spot. */
+  gto: {
+    villainValuePct: number   // % of villain's range that beats hero
+    villainBluffPct: number   // % that hero beats (should sum to 100 with above)
+    conceptTag: string        // short category pill label
+    keyInsight: string        // one key GTO lesson from this spot
+  }
 }
