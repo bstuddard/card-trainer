@@ -46,7 +46,7 @@
         "villainValuePct": 80,
         "villainBluffPct": 20,
         "conceptTag": "2× overbet: polarized",
-        "keyInsight": "A 2× pot overbet requires 40% equity. GTO bluffs at only 40% of the range here — but KJ is still losing to 80% of this range. One pair folds to polarized overbets."
+        "keyInsight": "A 2× overbet needs 40% equity. GTO-balanced villain would bluff at 40% — but this villain bluffs at only 20%, far below GTO. With 80% value hands and just 20% equity, the call is a disaster. One pair folds to polarized overbets."
       }
     },
     {
@@ -101,24 +101,24 @@
       "id": "river-call-top-pair-half-pot",
       "title": "Top pair facing a ½-pot bet",
       "street": "river",
-      "board": ["Kh", "7d", "2c", "9s", "Jd"],
+      "board": ["Kh", "7d", "2c", "9s", "4d"],
       "heroHand": ["Kc", "Qc"],
       "pot": 100,
       "bet": 50,
-      "situation": "Top pair kings, queen kicker on a K-7-2-9-J rainbow board. Villain bets half the pot — 50 into 100. The board is dry: no flush, no clean straight got there. Call or fold?",
+      "situation": "Top pair kings, queen kicker on a K-7-2-9-4 rainbow board. Villain bets half the pot — 50 into 100. The board is dry: no flush draws completed, no straight is possible with two cards. Call or fold?",
       "actions": ["Fold", "Call"],
       "correct": "Call",
       "math": {
         "requiredEquityPct": 25,
         "yourEquityPct": 42,
-        "reasoning": "Pot odds: need 50/200 = 25%. Range: ~18 value combos (sets, KJ, two pair) vs ~13 bluffs (missed Ax draws, QT). Equity = 13/31 = 42%."
+        "reasoning": "Pot odds: need 50/200 = 25%. Range: ~18 value combos (sets, K9, K7, two pair) vs ~13 bluffs (missed Ax draws, QJ, JT). Equity = 13/31 = 42%."
       },
-      "explanation": "42% comfortably clears 25%. A half-pot bet on a dry board means villain's range has plenty of busted draws that missed this runout. Top pair on a rainbow board is a solid bluff-catcher.",
+      "explanation": "42% comfortably clears 25%. A half-pot bet on a dry disconnected board means villain's range is loaded with busted overcards and missed draws. Top pair on a rainbow board is a solid bluff-catcher.",
       "gto": {
         "villainValuePct": 58,
         "villainBluffPct": 42,
         "conceptTag": "Dry board: strong position",
-        "keyInsight": "Rainbow dry boards leave villain with lots of missed draws. 42% of this range loses to KQ — nearly double the 25% needed. Villain is over-bluffing here."
+        "keyInsight": "Rainbow disconnected boards leave villain with lots of missed draws. 42% of this range loses to KQ — nearly double the 25% needed. Villain is over-bluffing here."
       }
     },
     {
@@ -134,8 +134,8 @@
       "correct": "Call",
       "math": {
         "requiredEquityPct": 20,
-        "yourEquityPct": 28,
-        "reasoning": "Pot odds: need 40/200 = 20%. Range: ~15 value combos (AK, A8, top sets) vs ~6 bluffs (QJ, JT, gutshots). Equity = 6/21 = 28%."
+        "yourEquityPct": 29,
+        "reasoning": "Pot odds: need 40/200 = 20%. Range: ~15 value combos (AK, A8, top sets) vs ~6 bluffs (QJ, JT, gutshots). Equity = 6/21 = 29%."
       },
       "explanation": "28% beats the 20% threshold. A ⅓-pot bet is almost free to call with any showdown value. Villain only makes this bet unprofitable if they bluff less than 1-in-4 times — an extremely tight range.",
       "gto": {
@@ -171,50 +171,50 @@
     },
     {
       "id": "river-call-full-house-75pct",
-      "title": "Full house — always call",
+      "title": "Eights full — nearly the nuts",
       "street": "river",
-      "board": ["Jd", "8s", "3h", "7c", "Js"],
-      "heroHand": ["Jh", "8d"],
+      "board": ["Js", "Jd", "8h", "Kc", "2d"],
+      "heroHand": ["8d", "8c"],
       "pot": 100,
       "bet": 75,
-      "situation": "You have jacks full of eights — a full house. The board paired jacks and you hold one. Villain bets 75 into 100. Only 77, 33, or 88-quads beat you. Call or fold?",
+      "situation": "You have eights full of jacks — a powerful full house. You flopped a set of eights and the board paired jacks. Villain bets 75 into 100. Only KK (kings full of jacks) or JcJh (quad jacks) can beat you — just 4 combos in the entire deck. Call or fold?",
       "actions": ["Fold", "Call"],
       "correct": "Call",
       "math": {
         "requiredEquityPct": 30,
         "yourEquityPct": 78,
-        "reasoning": "Pot odds: need 75/250 = 30%. Only ~5 combos beat you (77, 33, 88-quads). You win against all bluffs and most value. Equity ≈ 78%."
+        "reasoning": "Pot odds: need 75/250 = 30%. Only 4 combos beat you: KK = 3 combos (kings full), JcJh = 1 combo (quad jacks). Against a realistic ~22 combo betting range you win ~17. Equity ≈ 78%."
       },
-      "explanation": "78% is more than double the 30% required. A full house is a value hand, not a bluff-catcher. Even a 75% pot bet only demands 30% — your full house wins 78% of the time. Raise or call, never fold.",
+      "explanation": "78% is more than double the 30% required. A full house is a value hand, not a bluff-catcher. Even a 75% pot bet only demands 30% — your full house wins 78% of the time. Call or raise, never fold.",
       "gto": {
         "villainValuePct": 22,
         "villainBluffPct": 78,
-        "conceptTag": "Massive equity: raise?",
-        "keyInsight": "When you beat 78% of villain's range but only need 30%, consider raising for value. A full house on a paired board is a monster — villain is mostly bluffing. Raising extracts more."
+        "conceptTag": "Massive equity: call or raise",
+        "keyInsight": "Eights full of jacks is nearly the nuts — only KK (kings full, 3 combos) and JcJh (quad jacks, 1 combo) beat you. At 78% equity vs 30% needed, call is mandatory. Raising extracts more value."
       }
     },
     {
       "id": "river-call-flush-overbet",
-      "title": "Flush vs a 2x pot overbet",
+      "title": "Jack-high flush vs a 2x overbet",
       "street": "river",
-      "board": ["Ah", "9h", "5c", "2h", "Kd"],
+      "board": ["Jh", "9h", "5c", "2h", "Kd"],
       "heroHand": ["Th", "8h"],
       "pot": 60,
       "bet": 120,
-      "situation": "You rivered a ten-high flush on Ah-9h-5c-2h-Kd. Villain shoves 120 into 60 — a 2x pot overbet. This polarizes their range hard: they have a better flush or total air. Call or fold?",
+      "situation": "You rivered a jack-high flush on Jh-9h-5c-2h-Kd — a strong flush but not the nuts. Villain shoves 120 into 60 — a 2x pot overbet. Their range is polarized: a higher flush (Ah+, Qh+) or total air. Call or fold?",
       "actions": ["Fold", "Call"],
       "correct": "Call",
       "math": {
         "requiredEquityPct": 40,
         "yourEquityPct": 44,
-        "reasoning": "Pot odds: need 120/300 = 40%. Value: ~10 higher-flush combos (Jh+, Qh+). Bluffs: ~8 missed straight draws. Equity = 8/18 = 44%."
+        "reasoning": "Pot odds: need 120/300 = 40%. Value: ~10 higher-flush combos (Qh+, Ah+ combos). Bluffs: ~8 missed straight draws (QT, T7 etc). Equity = 8/18 = 44%."
       },
-      "explanation": "44% narrowly clears the 40% required. Overbets are balanced at ~40% bluffs at GTO. A ten-high flush beats all the air combos — the call just squeezes into profitable territory.",
+      "explanation": "44% narrowly clears the 40% required. Overbets are balanced at ~40% bluffs at GTO. A jack-high flush beats all the missed-draw air combos — the call just squeezes into profitable territory.",
       "gto": {
         "villainValuePct": 56,
         "villainBluffPct": 44,
         "conceptTag": "Overbet: flush vs flush",
-        "keyInsight": "A 2x overbet is GTO-balanced at 40% bluffs. Your ten-high flush beats all the air (44% of range). The thin edge makes this a call — overbets with this many bluffs can't be folded."
+        "keyInsight": "A 2x overbet is GTO-balanced at 40% bluffs. Your jack-high flush beats all the air (44% of range). The thin edge makes this a call — overbets with this many bluffs can't be folded."
       }
     },
     {
@@ -254,7 +254,7 @@
       "correct": "Call",
       "math": {
         "requiredEquityPct": 20,
-        "yourEquityPct": 26,
+        "yourEquityPct": 27,
         "reasoning": "Pot odds: need 50/250 = 20%. Range: ~16 value combos (AK, A9, K9, AA, KK, 99) vs ~6 air bluffs (QJ, JT, 65, missed gutshots). Equity = 6/22 = 27%."
       },
       "explanation": "27% beats the 20% threshold. A ⅓-pot probe says 'I want information cheaply' — villain bluffs this size liberally. Middle pair is a solid bluff-catcher at this tiny price.",
@@ -315,26 +315,26 @@
     },
     {
       "id": "river-fold-missed-straight-draw",
-      "title": "Bricked OESD — queen-high folds",
+      "title": "Bricked broadway draw — king-high folds",
       "street": "river",
       "board": ["Js", "Tc", "8d", "3h", "2s"],
-      "heroHand": ["Qd", "9s"],
+      "heroHand": ["Kd", "Qd"],
       "pot": 80,
       "bet": 80,
-      "situation": "You had an open-ended straight draw on the flop — QJ98 — but both the turn and river missed. You're left with queen-high, no pair. Villain fires a pot-sized bet. Queen-high at showdown? Call or fold?",
+      "situation": "You held a live broadway OESD on the turn — K-Q-J-T — needing an Ace or Nine to complete. The river bricked with a 2. Villain fires a pot-sized bet. King-high on a connected board has almost no showdown value. Call or fold?",
       "actions": ["Fold", "Call"],
       "correct": "Fold",
       "math": {
         "requiredEquityPct": 33,
         "yourEquityPct": 8,
-        "reasoning": "Pot odds: need 80/240 = 33%. Queen-high beats only ~3 combos of total air. Villain has ~33 value combos (pairs, two pairs, straights). Equity = 3/36 = 8%."
+        "reasoning": "Pot odds: need 80/240 = 33%. King-high loses to any pair. Villain has ~28 value combos (straights: QJ, Q9, 87; two pair: JT, J8, T8; sets: JJ, TT, 88) vs ~3 bluffs. Equity = 3/31 = 8%."
       },
-      "explanation": "8% is nowhere near 33%. A missed draw has no showdown value — you only beat pure bluffs. Even if villain over-bluffs at twice the GTO rate, the equity gap is impossible to overcome.",
+      "explanation": "8% is nowhere near 33%. A missed OESD becomes near-worthless air — king-high even loses to many of villain's bluffs. The gap between your equity and the required price is insurmountable.",
       "gto": {
         "villainValuePct": 92,
         "villainBluffPct": 8,
-        "conceptTag": "Bricked draw: no value",
-        "keyInsight": "Missed draws have nearly zero showdown value. Queen-high loses to any pair. Only 8% of this range is pure air — you need 33%. This is a clear fold even if villain bluffs occasionally."
+        "conceptTag": "Missed OESD: no showdown value",
+        "keyInsight": "Missed straight draws that reduce to king-high are nearly pure air. King-high loses to any pair and most bluffs. Only 8% of this range is purer air — you need 33%. Easy fold."
       }
     },
     {
@@ -350,15 +350,15 @@
       "correct": "Fold",
       "math": {
         "requiredEquityPct": 40,
-        "yourEquityPct": 14,
-        "reasoning": "Pot odds: need 100/250 = 40%. Broadway board: ~28 value combos (AQ, AK, KQ, AA, KK, QQ, A5, K5) vs ~4 air bluffs. Equity = 4/32 = 14%."
+        "yourEquityPct": 13,
+        "reasoning": "Pot odds: need 100/250 = 40%. Broadway board: ~28 value combos (AQ, AK, KQ, AA, KK, QQ, A5, K5) vs ~4 air bluffs. Equity = 4/32 = 13%."
       },
-      "explanation": "14% is a third of the 40% a 2x overbet demands. An AKQ board hits every premium preflop hand. Bottom pair is dead money — folding immediately is correct.",
+      "explanation": "13% is less than a third of the 40% a 2x overbet demands. An AKQ board hits every premium preflop hand. Bottom pair is dead money — folding immediately is correct.",
       "gto": {
-        "villainValuePct": 88,
-        "villainBluffPct": 12,
+        "villainValuePct": 87,
+        "villainBluffPct": 13,
         "conceptTag": "AKQ board: bottom pair dead",
-        "keyInsight": "Broadway boards (A, K, Q showing) connect with every premium preflop range. A 2x overbet needs 40% equity — bottom pair has 14%. Even at GTO bluff frequency (40%), bottom pair is nowhere close."
+        "keyInsight": "Broadway boards (A, K, Q showing) connect with every premium preflop range. A 2x overbet needs 40% equity — bottom pair has 13%. Even at GTO bluff frequency (40%), bottom pair is nowhere close."
       }
     },
     {
