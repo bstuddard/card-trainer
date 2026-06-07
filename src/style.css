@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a1410;
+  --color-bg-deep: #060d0a;
+  --color-felt: #123a2a;
+  --color-felt-soft: #16442f;
+  --color-surface: #0f1c16;
+  --color-surface-2: #16261d;
+  --color-fg: #eef3ee;
+  --color-fg-soft: #c7d2c9;
+  --color-muted: #7e8d83;
+  --color-muted-2: #586259;
+  --color-gold: #d9b24b;
+  --color-gold-soft: #e6cd86;
+  --color-good: #4caf7d;
+  --color-good-soft: #7fd6a8;
+  --color-bad: #d8674f;
+  --color-bad-soft: #eb9684;
+  --color-line: rgba(238, 243, 238, 0.08);
+  --color-line-2: rgba(238, 243, 238, 0.16);
+  --color-line-gold: rgba(217, 178, 75, 0.28);
+
+  --font-display: "Georgia", "Cormorant Garamond", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+html, body {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(120% 90% at 50% -10%, rgba(18, 58, 42, 0.55), transparent 60%),
+    radial-gradient(80% 70% at 50% 120%, rgba(6, 13, 10, 0.6), transparent 60%);
+  background-attachment: fixed;
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  min-height: 100svh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  /* Phone hardening: no rubber-band scroll chaining, no iOS font auto-zoom. */
+  overscroll-behavior-y: none;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+* { box-sizing: border-box; }
+
+button {
+  font-family: inherit;
+  /* Kill the grey tap flash and the 300ms double-tap-zoom delay on touch. */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.animate-fade-in { animation: fade-in 0.4s ease-out both; }
+.animate-pop-in { animation: pop-in 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both; }

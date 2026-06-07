@@ -1,0 +1,77 @@
+{
+  "note": "Curated heads-up spots. Pot-odds arithmetic is exact; villain ranges are stated reads, not solver output. requiredEquityPct = call / (call + pot + bet). yourEquityPct = bluffs / (bluffs + value), or outs-based for draws.",
+  "puzzles": [
+    {
+      "id": "river-call-value",
+      "title": "Facing a small river jam",
+      "street": "river",
+      "board": ["Qd", "7s", "2c", "9h", "4d"],
+      "heroHand": ["As", "Qc"],
+      "pot": 60,
+      "bet": 30,
+      "situation": "You have top pair, top kicker (a pair of queens with the best possible side card). On a dry board your opponent shoves a small bet — 30 into a pot of 60. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 40,
+        "reasoning": "Pot odds: you risk 30 to win the 60 pot plus their 30 bet = 90. You need 30 / (30 + 90) = 25% to break even. Range read: a typical jam here is ~18 hands that beat you (sets and two pair) and ~12 busted draws you beat. Your equity = 12 / (12 + 18) = 40%."
+      },
+      "explanation": "40% beats the 25% you need, so it's a clear call. The small bet size is the tell: laying you 3-to-1 means you only need to be good 1 time in 4, and even a hand that's often beaten clears that bar against any reasonable bluffing frequency."
+    },
+    {
+      "id": "river-fold-overbet",
+      "title": "Facing a river overbet",
+      "street": "river",
+      "board": ["Js", "9d", "5c", "2s", "6h"],
+      "heroHand": ["Kc", "Jd"],
+      "pot": 100,
+      "bet": 200,
+      "situation": "You have top pair with a king kicker (a pair of jacks). Your opponent shoves 200 into a pot of 100 — a big overbet. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 40,
+        "yourEquityPct": 20,
+        "reasoning": "Pot odds: you risk 200 to win the 100 pot plus their 200 = 300. You need 200 / (200 + 300) = 40% to break even. Range read: an overbet is polarized and value-heavy here — ~24 hands beat you (sets, straights, two pair) versus only ~6 bluffs. Your equity = 6 / (6 + 24) = 20%."
+      },
+      "explanation": "20% is well short of the 40% an overbet demands. Big bets need you to be right far more often, and one pair simply isn't strong enough against a range built mostly of value. Fold and wait for a better spot."
+    },
+    {
+      "id": "river-close-call",
+      "title": "A break-even river call",
+      "street": "river",
+      "board": ["Ah", "Td", "6c", "6s", "2d"],
+      "heroHand": ["As", "Jc"],
+      "pot": 80,
+      "bet": 80,
+      "situation": "You have top pair (a pair of aces) with a jack kicker. Your opponent shoves a pot-sized bet — 80 into 80. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 33,
+        "yourEquityPct": 33,
+        "reasoning": "Pot odds: you risk 80 to win the 80 pot plus their 80 = 160. You need 80 / (80 + 160) = 33% to break even. Range read: ~14 hands beat you (trips and better) versus ~7 bluffs. Your equity = 7 / (7 + 14) = 33%."
+      },
+      "explanation": "This is the indifference point — your equity exactly matches the price, so calling and folding are nearly equal in value. Lean toward calling: it stops a thinking opponent from being able to profitably bluff you here, which matters more than the razor-thin EV of this one hand."
+    },
+    {
+      "id": "turn-draw-call",
+      "title": "Drawing hand on the turn",
+      "street": "turn",
+      "board": ["As", "9s", "4d", "2c"],
+      "heroHand": ["Ks", "Qs"],
+      "pot": 100,
+      "bet": 25,
+      "situation": "You have a flush draw — four spades, so any spade on the river gives you a flush (9 cards left can do it). Your opponent, who looks like they have a made pair, bets just 25 into 100. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 17,
+        "yourEquityPct": 20,
+        "reasoning": "Pot odds: you risk 25 to win the 100 pot plus their 25 = 125. You need 25 / (25 + 125) = 17% to break even. Your equity: 9 spades complete your flush. The 'rule of 2' estimates one-card equity as outs x 2 = 18%; the exact figure is 9 / 46 unseen cards = 20%."
+      },
+      "explanation": "20% (even the 18% estimate) clears the 17% you need, so call. The tiny bet gives you a great price to chase, and your two overcards (K, Q) are extra outs on top that make the call even clearer."
+    }
+  ]
+}
