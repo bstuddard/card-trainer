@@ -16,46 +16,18 @@ const isRed = computed(() => props.card.suit === 'â™¥' || props.card.suit === 'â
 </script>
 
 <template>
-  <div class="card" :class="[`card--${size}`, { 'card--red': isRed }]">
-    <span class="card__rank">{{ rankText }}</span>
-    <span class="card__suit">{{ card.suit }}</span>
+  <div
+    class="inline-flex flex-col items-center justify-center bg-[#f7f4ec] leading-none font-display select-none border border-[rgba(0,0,0,0.25)]"
+    :class="[
+      size === 'lg' ? 'w-16 h-[90px] gap-1 rounded-lg' : 'w-[38px] h-[54px] gap-0.5 rounded-md',
+      isRed ? 'text-[#c0392b]' : 'text-[#1a1a1a]',
+    ]"
+    style="box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 22px -10px rgba(0,0,0,0.7);"
+  >
+    <span
+      class="font-bold"
+      :class="size === 'lg' ? 'text-[26px]' : 'text-[16px]'"
+    >{{ rankText }}</span>
+    <span :class="size === 'lg' ? 'text-[24px]' : 'text-[15px]'">{{ card.suit }}</span>
   </div>
 </template>
-
-<style scoped>
-.card {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #f7f4ec;
-  color: #1a1a1a;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.6) inset,
-    0 10px 22px -10px rgba(0, 0, 0, 0.7);
-  line-height: 1;
-  font-family: var(--font-display);
-  user-select: none;
-}
-.card--lg {
-  width: 64px;
-  height: 90px;
-  gap: 4px;
-}
-.card--sm {
-  width: 38px;
-  height: 54px;
-  gap: 2px;
-  border-radius: 6px;
-}
-.card--red { color: #c0392b; }
-.card__rank {
-  font-weight: 700;
-  font-size: 26px;
-}
-.card--sm .card__rank { font-size: 16px; }
-.card__suit { font-size: 24px; }
-.card--sm .card__suit { font-size: 15px; }
-</style>
