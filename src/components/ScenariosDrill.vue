@@ -7,6 +7,11 @@ import showdownData from '../data/showdowns.json'
 const emit = defineEmits<{ score: [correct: boolean] }>()
 
 const puzzles = showdownData.puzzles as ShowdownPuzzle[]
+if (import.meta.env.DEV) {
+  for (const p of puzzles) {
+    if (!p.gto) throw new Error(`Puzzle "${p.id}" is missing the gto field`)
+  }
+}
 const puzzleIdx = ref(Math.floor(Math.random() * puzzles.length))
 const puzzle = computed(() => puzzles[puzzleIdx.value])
 const choice = ref<string | null>(null)
