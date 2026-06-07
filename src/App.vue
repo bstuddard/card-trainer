@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 import PreflopDrill from './components/PreflopDrill.vue'
-import ShowdownDrill from './components/ShowdownDrill.vue'
+import ScenariosDrill from './components/ScenariosDrill.vue'
 import OddsDrill from './components/OddsDrill.vue'
 import EquityDrill from './components/EquityDrill.vue'
 import LearnView from './components/LearnView.vue'
@@ -11,7 +11,7 @@ type Mode = 'steal' | 'mid' | 'showdown' | 'odds' | 'equity' | 'learn'
 const MODES: { id: Mode; label: string; sub: string }[] = [
   { id: 'steal',    label: 'Steal seat',  sub: 'Open wide'    },
   { id: 'mid',      label: 'Middle seat', sub: 'Open tight'   },
-  { id: 'showdown', label: 'Heads-up',    sub: 'Turn/river'   },
+  { id: 'showdown', label: 'Scenarios',   sub: 'GTO spots'    },
   { id: 'odds',     label: 'Pot odds',    sub: 'Break-even %' },
   { id: 'equity',   label: 'Equity',      sub: 'Count outs'   },
   { id: 'learn',    label: 'Learn',       sub: 'Guides & charts' },
@@ -97,7 +97,7 @@ function handleScore(correct: boolean) {
       :lane-id="mode"
       @score="handleScore"
     />
-    <ShowdownDrill v-else-if="mode === 'showdown'" @score="handleScore" />
+    <ScenariosDrill v-else-if="mode === 'showdown'" @score="handleScore" />
     <OddsDrill     v-else-if="mode === 'odds'"     @score="handleScore" />
     <EquityDrill   v-else-if="mode === 'equity'" />
     <LearnView     v-else-if="mode === 'learn'" />

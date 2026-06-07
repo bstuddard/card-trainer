@@ -100,10 +100,23 @@ export function analyzeHand(hero: Card[], board: Card[]): EquityAnalysis {
       : 'Check-call small bets; fold to large bets on dangerous boards.')
 
   // ---- Draws ----
-  const cardsLeft = board.length === 3 ? 2 : 1
-  const ruleN = cardsLeft * 2 // 4 on flop, 2 on turn
+  // Cards left to come: flop = 2, turn = 1, river = 0
+  const cardsLeft = board.length === 3 ? 2 : board.length === 4 ? 1 : 0
+  const ruleN = cardsLeft * 2  // Rule of 4 on flop, Rule of 2 on turn
 
-  // Flush draw: exactly 4 of one suit with hero contributing
+  // River: all community cards are dealt. Every draw is dead.
+  if (cardsLeft === 0) {
+    return {
+      outs: 0,
+      equityPct: 0,
+      rule: 'river',
+      handSummary: 'no made hand',
+      outsDetail: 'All 5 board cards are dealt — no cards left to come. Your draws missed.',
+      recommendation: 'No made hand on the river. Check-fold to any significant bet unless you have a strong read that villain is over-bluffing.',
+    }
+  }
+
+  // Flush draw: exactly 4 of one suit total, hero contributing at least one
   const fdSuit = Object.entries(suitTotals)
     .find(([s, n]) => n === 4 && heroSuits.has(s as Card['suit']))
 
@@ -132,7 +145,7 @@ export function analyzeHand(hero: Card[], board: Card[]): EquityAnalysis {
     }
   }
 
-  // Overcards: hero cards higher than all board ranks
+  // Overcards: hero cards above all board ranks (only meaningful without other draws)
   const maxBoard = board.length > 0 ? Math.max(...board.map(c => c.rank)) : 0
   const overcards = hero.filter(c => c.rank > maxBoard)
 
@@ -146,7 +159,7 @@ export function analyzeHand(hero: Card[], board: Card[]): EquityAnalysis {
     completors.push(`any ${SUIT_NAMES[fdSuit[0]]} — 9 remaining in the deck`)
   }
   if (oesdWindow) {
-    const sdOuts = fdSuit ? 6 : 8 // subtract ~2 for overlap with flush outs
+    const sdOuts = fdSuit ? 6 : 8 // avoid double-counting cards completing both draws
     outs += sdOuts
     parts.push('open-ended straight draw')
     const lo = oesdWindow[0] === 1 ? 14 : oesdWindow[0] - 1
@@ -165,11 +178,14 @@ export function analyzeHand(hero: Card[], board: Card[]): EquityAnalysis {
   }
 
   if (outs === 0) {
+    const backdoorEquity = cardsLeft === 2 ? 18 : 8
     return {
-      outs: 0, equityPct: 18, rule: 'estimate',
+      outs: 0, equityPct: backdoorEquity, rule: 'estimate',
       handSummary: 'no hand, no draw',
-      outsDetail: 'You have no pair and no real draw. Your equity comes from backdoor runner-runner draws only.',
-      recommendation: 'Check and fold to any significant bet. Look for cheap calls only if stack sizes justify a bluff-catcher later.',
+      outsDetail: cardsLeft === 2
+        ? 'No pair and no direct draw. Equity comes from backdoor runner-runner draws only (~18%).'
+        : 'No pair and no draw on the turn. Minimal equity — only a perfect river card saves you (~8%).',
+      recommendation: 'Check and fold to any significant bet. Look for cheap calls only if stack sizes justify a bluff-catcher.',
     }
   }
 
