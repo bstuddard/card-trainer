@@ -68,16 +68,3 @@ export interface ShowdownPuzzle {
     keyInsight: string        // one key GTO lesson from this spot
   }
 }
-
-// ----- Session (in-memory only; no persistence by design) -------------------
-
-export interface LaneTally {
-  correct: number
-  total: number
-}
-
-export type Verdict = {
-  correct: boolean
-  chosen: string
-  answer: string
-}
