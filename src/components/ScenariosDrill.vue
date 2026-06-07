@@ -151,8 +151,9 @@ const beatsPotOdds = computed(() => yourEq.value >= reqEq.value)
           </div>
           <!-- Bluffs: hero beats -->
           <div
-            class="flex items-center justify-center flex-1"
+            class="flex items-center justify-center shrink-0"
             style="background: rgba(76,175,125,0.22);"
+            :style="{ width: puzzle.gto.villainBluffPct + '%' }"
           >
             <span
               v-if="puzzle.gto.villainBluffPct >= 18"
@@ -178,7 +179,7 @@ const beatsPotOdds = computed(() => yourEq.value >= reqEq.value)
       </div>
 
       <!-- Math reasoning -->
-      <p class="fb__text--mono">{{ puzzle.math.reasoning }}</p>
+      <p class="fb__text fb__text--mono">{{ puzzle.math.reasoning }}</p>
 
       <!-- Full explanation -->
       <p class="fb__text">{{ puzzle.explanation }}</p>

@@ -150,7 +150,7 @@ onUnmounted(() => clearInterval(tick))
         </div>
       </div>
 
-      <p class="fb__text--mono">{{ analysis.outsDetail }}</p>
+      <p class="fb__text fb__text--mono">{{ analysis.outsDetail }}</p>
       <p class="fb__text">{{ analysis.recommendation }}</p>
 
       <button class="next" @click="nextStreet">

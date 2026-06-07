@@ -100,12 +100,9 @@ export function analyzeHand(hero: Card[], board: Card[]): EquityAnalysis {
       : 'Check-call small bets; fold to large bets on dangerous boards.')
 
   // ---- Draws ----
-  // Cards left to come: flop = 2, turn = 1, river = 0
-  const cardsLeft = board.length === 3 ? 2 : board.length === 4 ? 1 : 0
-  const ruleN = cardsLeft * 2  // Rule of 4 on flop, Rule of 2 on turn
-
-  // River: all community cards are dealt. Every draw is dead.
-  if (cardsLeft === 0) {
+  // Board lengths: 3 = flop (2 cards left), 4 = turn (1 card left), 5 = river (0 left)
+  // Anything else (0, 1, 2) is pre-community — treat as no-board placeholder.
+  if (board.length === 5) {
     return {
       outs: 0,
       equityPct: 0,
@@ -115,6 +112,10 @@ export function analyzeHand(hero: Card[], board: Card[]): EquityAnalysis {
       recommendation: 'No made hand on the river. Check-fold to any significant bet unless you have a strong read that villain is over-bluffing.',
     }
   }
+  if (board.length < 3) return placeholder()
+
+  const cardsLeft = board.length === 3 ? 2 : 1  // flop = 2, turn = 1
+  const ruleN = cardsLeft * 2                    // Rule of 4 on flop, Rule of 2 on turn
 
   // Flush draw: exactly 4 of one suit total, hero contributing at least one
   const fdSuit = Object.entries(suitTotals)
