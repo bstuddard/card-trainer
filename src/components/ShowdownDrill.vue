@@ -49,7 +49,8 @@ const heroShowdownCards = computed(() => puzzle.value.heroHand.map(parseCard))
       <span class="seat__ctx">Heads-up · {{ puzzle.street }} · pot {{ puzzle.pot }}, facing {{ puzzle.bet }}</span>
     </div>
 
-    <div class="community">
+    <!-- Board cards -->
+    <div class="flex gap-1.5 py-2">
       <PlayingCard v-for="(c, i) in boardCards" :key="i" :card="c" size="sm" />
     </div>
 
@@ -78,18 +79,19 @@ const heroShowdownCards = computed(() => puzzle.value.heroHand.map(parseCard))
         <span class="fb__answer">— best play: {{ puzzle.correct }}</span>
       </div>
 
-      <div class="odds">
-        <div class="odds__cell">
-          <span class="odds__num">{{ puzzle.math.requiredEquityPct }}%</span>
-          <span class="odds__lbl">equity needed (pot odds)</span>
+      <!-- Equity comparison -->
+      <div class="flex items-center justify-center gap-4 py-2">
+        <div class="flex flex-col items-center gap-0.5">
+          <span class="font-mono text-[22px] text-fg">{{ puzzle.math.requiredEquityPct }}%</span>
+          <span class="text-[9.5px] tracking-[0.04em] uppercase text-muted text-center max-w-[12ch] leading-[1.3]">equity needed (pot odds)</span>
         </div>
-        <div class="odds__vs">vs</div>
-        <div class="odds__cell">
+        <div class="font-display italic text-muted">vs</div>
+        <div class="flex flex-col items-center gap-0.5">
           <span
-            class="odds__num"
-            :class="puzzle.math.yourEquityPct >= puzzle.math.requiredEquityPct ? 'odds__num--ok' : 'odds__num--no'"
+            class="font-mono text-[22px]"
+            :class="puzzle.math.yourEquityPct >= puzzle.math.requiredEquityPct ? 'text-good-soft' : 'text-bad-soft'"
           >{{ puzzle.math.yourEquityPct }}%</span>
-          <span class="odds__lbl">your equity</span>
+          <span class="text-[9.5px] tracking-[0.04em] uppercase text-muted text-center max-w-[12ch] leading-[1.3]">your equity</span>
         </div>
       </div>
 
@@ -100,46 +102,3 @@ const heroShowdownCards = computed(() => puzzle.value.heroHand.map(parseCard))
     </div>
   </main>
 </template>
-
-<style scoped>
-.community {
-  display: flex;
-  gap: 6px;
-  padding: 8px 0;
-}
-
-.odds {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 8px 0;
-}
-.odds__cell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-.odds__num {
-  font-family: var(--font-mono);
-  font-size: 22px;
-  color: var(--color-fg);
-}
-.odds__num--ok { color: var(--color-good-soft); }
-.odds__num--no { color: var(--color-bad-soft); }
-.odds__lbl {
-  font-size: 9.5px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  max-width: 12ch;
-  text-align: center;
-  line-height: 1.3;
-}
-.odds__vs {
-  font-family: var(--font-display);
-  font-style: italic;
-  color: var(--color-muted);
-}
-</style>

@@ -27,7 +27,7 @@ const SCENARIOS: Scenario[] = [
 const RANKS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
 
 const handMap: Record<string, number> = Object.fromEntries(
-  (handRankingData as RankedHand[]).map(h => [h.hand, h.percentileStart])
+  (handRankingData as { hands: RankedHand[] }).hands.map(h => [h.hand, h.percentileStart])
 )
 
 function cellName(i: number, j: number): string {
