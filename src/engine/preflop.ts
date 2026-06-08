@@ -12,39 +12,46 @@ import { dealCards, randomHand } from './hands'
 
 export const LANES: Lane[] = [
   {
-    id: 'steal',
-    label: 'Steal seat',
-    seatLabel: 'Button / Small Blind',
-    blurb: 'Late position, few players left — open wide and apply pressure.',
+    id: 'utg',
+    label: 'UTG',
+    seatLabel: 'Under the Gun',
+    blurb: 'First to act — 6 players behind. Only open premium hands.',
+    thresholdPct: 14,
+  },
+  {
+    id: 'hj',
+    label: 'HJ',
+    seatLabel: 'Hijack',
+    blurb: 'Three players behind. Widen slightly from UTG but stay selective.',
+    thresholdPct: 20,
+  },
+  {
+    id: 'co',
+    label: 'CO',
+    seatLabel: 'Cutoff',
+    blurb: 'Two players behind. Good position — open a fairly wide range.',
+    thresholdPct: 28,
+  },
+  {
+    id: 'btn',
+    label: 'BTN',
+    seatLabel: 'Button',
+    blurb: 'Last to act postflop — the best seat. Steal wide and apply pressure.',
     thresholdPct: 45,
   },
   {
-    id: 'mid',
-    label: 'Middle seat',
-    seatLabel: 'Middle position',
-    blurb: 'Players still behind you — open tight, fold the marginal stuff.',
-    thresholdPct: 20,
+    id: 'sb',
+    label: 'SB',
+    seatLabel: 'Small Blind',
+    blurb: 'Posted half the blind. Open reasonably wide but play out of position.',
+    thresholdPct: 35,
   },
 ]
 
-export function laneById(id: Lane['id']): Lane {
-  return LANES.find((l) => l.id === id) ?? LANES[0]
-}
-
-// Concrete seat shown for a spot (the steal lane randomly shows BTN or SB).
-function seatFor(lane: Lane): string {
-  if (lane.id === 'steal') return Math.random() < 0.5 ? 'Button' : 'Small Blind'
-  return 'Middle position'
-}
-
-export function generateSpot(lane: Lane): PreflopSpot {
+export function generateSpot(): PreflopSpot {
+  const lane = LANES[Math.floor(Math.random() * LANES.length)]
   const hand = randomHand()
-  return {
-    lane,
-    seat: seatFor(lane),
-    hand,
-    cards: dealCards(hand),
-  }
+  return { lane, hand, cards: dealCards(hand) }
 }
 
 /** The textbook-correct action for a spot. */
@@ -76,7 +83,7 @@ export function gradePreflop(spot: PreflopSpot, chosen: PreflopAction): PreflopF
 
   const where =
     `${spot.hand.hand} sits in the top ${p.toFixed(0)}% of all hands. ` +
-    `From the ${spot.seat.toLowerCase()} you open the top ~${t}%, ` +
+    `From the ${spot.lane.seatLabel} you open the top ~${t}%, ` +
     (inside
       ? `so this is comfortably an open (${margin}% inside the line).`
       : `so this folds (${margin}% past the line).`)

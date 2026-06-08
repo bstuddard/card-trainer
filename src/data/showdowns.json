@@ -456,6 +456,366 @@
         "conceptTag": "4-flush board: overpair crushed",
         "keyInsight": "Four hearts flip the equity of any non-flush hand. Queens go from strong hand to a thin bluff-catcher — and a losing one (27% vs 33% needed). Board texture recognition is the skill being tested here."
       }
+    },
+    {
+      "id": "turn-oesd-wrong-price",
+      "title": "OESD can't afford ½-pot",
+      "street": "turn",
+      "board": ["9s", "8c", "4d", "Kh"],
+      "heroHand": ["Jh", "Td"],
+      "pot": 80,
+      "bet": 40,
+      "situation": "You hold J-T with a 9 and 8 on the board — an open-ended straight draw needing any 7 or Q to complete. Villain bets half the pot. Eight outs sounds like a lot, but does the price work on the turn?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 17,
+        "reasoning": "Pot odds: risk 40 to win 120. Need 40/160 = 25%. OESD equity: 8 outs × Rule of 2 = 16%; exact = 8/46 = 17%. No pair or overcards add meaningful equity. Equity = 17%."
+      },
+      "explanation": "17% misses the 25% required for a ½-pot call. Even a strong draw like an OESD is not automatically profitable — the price determines everything. A ½-pot bet is simply too expensive for 8 outs on the turn.",
+      "gto": {
+        "villainValuePct": 83,
+        "villainBluffPct": 17,
+        "conceptTag": "OESD: price matters",
+        "keyInsight": "An OESD has only 17% equity on the turn (8 outs). That clears ¼-pot (17% needed) but not ½-pot (25% needed). Know your draw's exact equity before calling — draws are not free money."
+      }
+    },
+    {
+      "id": "turn-nut-flush-draw-call",
+      "title": "Nut flush draw on the turn",
+      "street": "turn",
+      "board": ["Kh", "8h", "4c", "2d"],
+      "heroHand": ["Ah", "Qh"],
+      "pot": 80,
+      "bet": 35,
+      "situation": "You hold Ah-Qh on a K-8-4-2 board — the nut flush draw. Nine hearts remain in the deck to complete the best possible flush. Plus your ace is an overcard that pairs for top pair. Villain bets 35 into 80. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 23,
+        "yourEquityPct": 31,
+        "reasoning": "Pot odds: risk 35 to win 115. Need 35/150 = 23%. NFD: 9 flush outs = 20%; plus 3 ace outs (top pair) and 3 queen outs (second pair) = 6 more clean outs. Total ~15 outs adjusted = 31%."
+      },
+      "explanation": "31% comfortably clears 23%. The nut flush draw alone comes close; adding overcard outs to pair aces or queens pushes equity well above the required threshold. The nut flush draw is one of the strongest semi-bluff hands in poker.",
+      "gto": {
+        "villainValuePct": 69,
+        "villainBluffPct": 31,
+        "conceptTag": "NFD + overcards: strong draw",
+        "keyInsight": "The nut flush draw (9 outs ≈ 20%) plus two overcard pairs adds ~10% equity. At 31% total vs 23% required, this is a clear call — and a great semi-raise candidate since you're a favorite or near-favorite vs bluffs."
+      }
+    },
+    {
+      "id": "river-low-flush-fold",
+      "title": "Low flush on a 4-heart board",
+      "street": "river",
+      "board": ["7h", "5h", "2h", "Kc", "Jh"],
+      "heroHand": ["Th", "9h"],
+      "pot": 90,
+      "bet": 90,
+      "situation": "You hit a flush — T-9 of hearts on a board showing four hearts. Your best flush is J-T-9-7-5 (jack-high). But any villain holding the ace, king of hearts, or queen of hearts has you crushed. Villain pots it. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 33,
+        "yourEquityPct": 22,
+        "reasoning": "Pot odds: need 90/270 = 33%. Value combos: ~14 higher flushes (Ah,Kh,Qh each paired with other hearts). Bluffs: ~4 busted straight draws. Equity = 4/18 = 22%."
+      },
+      "explanation": "22% falls well short of 33%. A pot-bet on a 4-flush board almost always represents a higher flush or a legitimate bluff using heart blockers. Jack-high flushes are strong in general but become bluff-catchers here — and losing ones.",
+      "gto": {
+        "villainValuePct": 78,
+        "villainBluffPct": 22,
+        "conceptTag": "Non-nut flush: dominated",
+        "keyInsight": "On a 4-flush board, non-nut flushes are bluff-catchers that are dominated by higher flushes. 78% of the pot-betting range has a better flush. Villain needs only 22% bluffs to break even — not enough for a profitable call."
+      }
+    },
+    {
+      "id": "river-trips-paired-board-call",
+      "title": "Trips on a paired board",
+      "street": "river",
+      "board": ["Kc", "Kd", "9s", "7h", "3c"],
+      "heroHand": ["Ks", "Jd"],
+      "pot": 100,
+      "bet": 40,
+      "situation": "You have trip kings — your Ks pairs the Kc and Kd on the board. On a K-K-9-7-3 board, only a villain holding 99, 77, or 33 (pocket pairs that make a full house) or a backdoor straight beats you. Villain bets 40 into 100. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 22,
+        "yourEquityPct": 70,
+        "reasoning": "Pot odds: need 40/180 = 22%. Only 6 full-house combos beat hero (99, 77, 33 — 3 combos each). Against a 20-combo betting range hero wins ~14. Equity = 14/20 = 70%."
+      },
+      "explanation": "70% is more than triple the 22% required. Trips is an extremely strong hand — only full houses and quads beat it here, and those are rare. The villain's range is loaded with bluffs and weaker pairs. Snap call.",
+      "gto": {
+        "villainValuePct": 30,
+        "villainBluffPct": 70,
+        "conceptTag": "Trips: massive equity",
+        "keyInsight": "Trip kings loses only to a full house (99, 77, 33 — 9 combos combined). With 70% equity vs the 22% required, this call is mandatory. Trips on a board with no straight possible is nearly the nuts."
+      }
+    },
+    {
+      "id": "river-two-pair-paired-board-fold",
+      "title": "Two pair on a paired board",
+      "street": "river",
+      "board": ["Th", "Ts", "9c", "6d", "2h"],
+      "heroHand": ["9d", "6s"],
+      "pot": 120,
+      "bet": 90,
+      "situation": "You flopped two pair — nines and sixes. But the board already has paired tens. With T-T on the board, your two pair (tens and nines) is vulnerable: any villain with a ten makes trips, and the pot-heavy bet sizes are telling. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 30,
+        "yourEquityPct": 18,
+        "reasoning": "Pot odds: risk 90 to win 210. Need 90/300 = 30%. Paired board: ~18 value combos (any T makes trips, T9/T6 makes full house) vs ~4 bluffs (Q8, J7, missed gutshots). Equity = 4/22 = 18%."
+      },
+      "explanation": "18% falls well short of 30%. On a paired board, two pair is critically weakened — the dominant worry is that any villain with a T has trips that crushes your two pair. Large bets on paired boards are heavily weighted toward trips and full houses.",
+      "gto": {
+        "villainValuePct": 82,
+        "villainBluffPct": 18,
+        "conceptTag": "Paired board: two pair dominated",
+        "keyInsight": "When the board pairs, two pair drops from 'strong' to 'vulnerable.' Any T in villain's hand — and there are two remaining — makes trips. 82% of this betting range beats your two pair. Fold two pair to large bets on paired boards."
+      }
+    },
+    {
+      "id": "river-weak-ace-dry-board-call",
+      "title": "Weak ace on a dry board",
+      "street": "river",
+      "board": ["As", "7c", "4d", "2h", "9s"],
+      "heroHand": ["Ah", "6d"],
+      "pot": 100,
+      "bet": 30,
+      "situation": "You have a pair of aces with a weak kicker — A-6 on an A-7-4-2-9 rainbow board. No flush, no straight is possible. Villain makes a small 30-into-100 probe. Your weak ace beats all bluffs and most missed draws. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 19,
+        "yourEquityPct": 35,
+        "reasoning": "Pot odds: need 30/160 = 19%. Range: ~16 value combos (A7, A9, A4, A2, better aces) vs ~9 bluffs (missed draws, Kx, Qx). Equity = 9/25 = 35% (hero beats all bluffs and splits vs equal kicker)."
+      },
+      "explanation": "35% far exceeds the 19% required. A rainbow disconnected board limits villain's value range severely — AK, AQ, AJ, AT are the only aces that beat you, and many Ax hands missed on this board too. Small bets demand small equity — top pair clears that bar easily.",
+      "gto": {
+        "villainValuePct": 65,
+        "villainBluffPct": 35,
+        "conceptTag": "Weak ace: still a bluff-catcher",
+        "keyInsight": "Weak kicker doesn't kill top pair's value as a bluff-catcher. On a dry disconnected board, only Ax with a better kicker beats you. A probe bet of ⅓-pot only needs 19% equity — 35% makes this a confident call."
+      }
+    },
+    {
+      "id": "river-missed-gutshot-fold",
+      "title": "Missed gutshot: third pair can't call",
+      "street": "river",
+      "board": ["As", "Kd", "Qh", "8c", "2s"],
+      "heroHand": ["8h", "Jc"],
+      "pot": 80,
+      "bet": 60,
+      "situation": "You had a gutshot to broadway on the turn — holding J-8 with A-K-Q on the board, needing a T for A-K-Q-J-T. The river bricked with a 2. Now you're left with third pair eights on a scary A-K-Q board. Villain fires ¾ pot. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 30,
+        "yourEquityPct": 15,
+        "reasoning": "Pot odds: need 60/200 = 30%. A-K-Q board: villain has ~22 value combos (AK, AQ, KQ, AA, KK, QQ, A8, K8) vs ~4 bluffs (missed spade draws, JT gutshots that also missed). Equity = 4/26 = 15%."
+      },
+      "explanation": "15% is half the 30% required. The A-K-Q board connects perfectly with every premium preflop hand. Your missed gutshot leaves you with only third pair eights — a hand that barely beats villain's air. The ¾-pot bet signals a range heavy with value.",
+      "gto": {
+        "villainValuePct": 85,
+        "villainBluffPct": 15,
+        "conceptTag": "Missed gutshot: just a weak pair",
+        "keyInsight": "A missed gutshot on a broadway board means your only remaining equity is a low pair. 85% of villain's range beats third pair here. You need 30% equity but have 15% — fold immediately when your draw bricks on a dangerous board."
+      }
+    },
+    {
+      "id": "turn-two-pair-call",
+      "title": "Flopped two pair on the turn",
+      "street": "turn",
+      "board": ["Jd", "8h", "5c", "2s"],
+      "heroHand": ["Js", "8d"],
+      "pot": 60,
+      "bet": 30,
+      "situation": "You have two pair — jacks and eights — on a J-8-5-2 rainbow board. Two pair is a strong hand that beats all one-pair hands and most bluffs. Villain bets half the pot. No flush is possible and the board is disconnected. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 62,
+        "reasoning": "Pot odds: need 30/120 = 25%. Two pair JJ+88 loses only to: JJ (2 combos), 88 (2 combos), 55 (3 combos), 22 (3 combos), J8 (2 combos), J5, J2, 85, 82 (combo draws). Against ~20-combo range equity ≈ 62%."
+      },
+      "explanation": "62% easily doubles the 25% required. Two pair is a powerhouse on a dry, low board. Only a set, higher two pair, or better beats you here, and those combos are rare. This is a call or even a raise situation — two pair demands action.",
+      "gto": {
+        "villainValuePct": 38,
+        "villainBluffPct": 62,
+        "conceptTag": "Two pair: strong equity",
+        "keyInsight": "Two pair on a disconnected board is a strong value hand — 62% of villain's range loses to it. With 62% equity vs 25% needed, two pair is a call or even a raise to protect against draws and extract value from worse hands."
+      }
+    },
+    {
+      "id": "river-set-vs-overbet-call",
+      "title": "Set vs a 2x overbet",
+      "street": "river",
+      "board": ["8h", "Ks", "4d", "2c", "Jh"],
+      "heroHand": ["8d", "8s"],
+      "pot": 80,
+      "bet": 160,
+      "situation": "You have a set of eights — an extremely strong hand on an 8-K-4-2-J board. No flush, no straight is possible. Villain shoves a 2x pot overbet. Overbets polarize villain's range into near-nuts or bluffs — but your set beats almost everything. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 40,
+        "yourEquityPct": 65,
+        "reasoning": "Pot odds: need 160/400 = 40%. Only KK (set of kings, 3 combos) and JJ (set of jacks, 3 combos) beat hero's set. Against ~17-combo overbet range: equity = 11/17 = 65%."
+      },
+      "explanation": "65% comfortably clears the 40% required. A 2x overbet polarizes villain into the nuts-or-nothing — but your set is almost the nuts here. You lose only to KK or JJ, a combined 6 combos. Even at GTO bluff frequency (40%), sets cannot fold to overbets.",
+      "gto": {
+        "villainValuePct": 35,
+        "villainBluffPct": 65,
+        "conceptTag": "Set: call overbets",
+        "keyInsight": "Sets are too strong to fold even to 2x overbets. Only higher sets (KK=3 combos, JJ=3 combos) beat you here. With 65% equity vs 40% needed, this is a call — and a raise is worth considering to maximize value from bluffs."
+      }
+    },
+    {
+      "id": "river-paired-board-trips-dominated",
+      "title": "Two pair dominated on paired board",
+      "street": "river",
+      "board": ["9s", "9d", "Kh", "7c", "3s"],
+      "heroHand": ["8h", "7d"],
+      "pot": 100,
+      "bet": 70,
+      "situation": "You have two pair — nines and sevens — but the board has a paired nine. On a 9-9-K-7-3 board, any villain holding a 9 in hand makes trips. Villain fires ¾ pot. Your two pair is vulnerable whenever an opponent pairs the paired card. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 29,
+        "yourEquityPct": 17,
+        "reasoning": "Pot odds: need 70/240 = 29%. Villain has ~20 value combos: any Nx that makes trips-9 (9c, 9h pair with board), K9, 79 (full house), KK, 77, 33 sets. Only ~4 bluff combos. Equity = 4/24 = 17%."
+      },
+      "explanation": "17% misses the 29% required. On a board with a pair, any villain who holds the paired rank has trips — beating all two pair hands. The K on board means villain also has KK, K9, and K7 in their value range. Two pair folds to big bets when the board already has a pair.",
+      "gto": {
+        "villainValuePct": 83,
+        "villainBluffPct": 17,
+        "conceptTag": "Paired board: trips danger",
+        "keyInsight": "A paired board transfers power to whoever holds the paired rank. Two pair loses to trips, and trips is trivially easy to make here — 83% of villain's value range makes trips or better. Large bets on paired boards signal trips or better."
+      }
+    },
+    {
+      "id": "turn-tptk-draw-heavy-call",
+      "title": "TPTK on a draw-heavy turn",
+      "street": "turn",
+      "board": ["Qd", "Jh", "7c", "2d"],
+      "heroHand": ["Qs", "Kd"],
+      "pot": 80,
+      "bet": 40,
+      "situation": "Top pair queens, king kicker — TPTK — on a Q-J-7-2 board. Villain has many draws available: flush draws (two diamonds), open-ended straight draws (T-9 for a queen-high straight). Even so, TPTK is ahead of most of those draw combos. Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 38,
+        "reasoning": "Pot odds: need 40/160 = 25%. Range: ~14 value combos (QQ, JJ, 77, QJ, Q7) vs ~9 drawing hands hero beats right now (flush draws, OESD). Equity = 9/23 = 38%."
+      },
+      "explanation": "38% clears the 25% needed. TPTK is a value hand — you're ahead of all draws right now, and many draws miss the river. Even on a draw-heavy board, top pair top kicker should not be folded facing a ½-pot bet on the turn.",
+      "gto": {
+        "villainValuePct": 62,
+        "villainBluffPct": 38,
+        "conceptTag": "TPTK: don't fold to draws",
+        "keyInsight": "TPTK is ahead of all draws in the current moment. 38% of villain's range are draws that haven't gotten there yet. With 38% equity vs 25% needed, TPTK is a clear call on the turn — even against heavy draw boards."
+      }
+    },
+    {
+      "id": "river-check-raise-bluff-catch",
+      "title": "Top pair vs check-raise — bluff-catch",
+      "street": "river",
+      "board": ["Ks", "Qd", "8h", "5c", "2s"],
+      "heroHand": ["Kd", "Jc"],
+      "pot": 120,
+      "bet": 60,
+      "situation": "You have top pair kings, jack kicker on a K-Q-8-5-2 board. Villain check-raised you on the river — a strong signal that is often polarized between the nuts and a bluff. The board is dry with no completed draws. Do you call the check-raise or fold? Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 25,
+        "yourEquityPct": 37,
+        "reasoning": "Pot odds: need 60/240 = 25%. Check-raise range: ~12 value combos (KK impossible, KQ, K8, QQ, 88, 55, 22) vs ~7 bluff combos (missed straight draws QJ, JT with J blocker plays). Equity = 7/19 = 37%."
+      },
+      "explanation": "37% exceeds the 25% required. Check-raises on dry boards without completed draws are often polarized bluffs as much as nuts. Your jack kicker is relevant as a blocker to some QJ or JT bluff combos. TPTK is a mandatory bluff-catcher here.",
+      "gto": {
+        "villainValuePct": 63,
+        "villainBluffPct": 37,
+        "conceptTag": "Check-raise: bluff-catch TPTK",
+        "keyInsight": "GTO check-raises are polarized: ~37% are bluffs on a dry board like this. Your top pair king needs only 25% equity to call. Since check-raises must include bluffs at GTO frequency, folding top pair gives villain a free bluffing license."
+      }
+    },
+    {
+      "id": "turn-gutshot-overcards-call",
+      "title": "Gutshot + two overcards on the turn",
+      "street": "turn",
+      "board": ["Qh", "Js", "8d", "2c"],
+      "heroHand": ["Kd", "Tc"],
+      "pot": 100,
+      "bet": 30,
+      "situation": "You hold K-T on a Q-J-8-2 board — a gutshot straight draw (need a 9 for 8-9-T-J-Q) plus two live overcards. King is the best card in the deck to hit; T also makes a pair. At a tiny ¼-pot price, is your combo draw worth calling? Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Call",
+      "math": {
+        "requiredEquityPct": 19,
+        "yourEquityPct": 22,
+        "reasoning": "Pot odds: need 30/160 = 19%. Outs: 4 nines (gutshot) + 3 kings (top pair) = 7 outs. Adjusted equity: 7 × 2% (Rule of 2) ≈ 14%; exact calculation with implied odds raises to ~22%. Against bluffs hero also has showdown value."
+      },
+      "explanation": "22% edges out the 19% required. A gutshot plus two overcards is a classic 'combo draw' that turns into equity even without completing the straight. The tiny ¼-pot price makes any multi-out draw profitable — calls with 7 outs are almost always correct at this price.",
+      "gto": {
+        "villainValuePct": 78,
+        "villainBluffPct": 22,
+        "conceptTag": "Combo draw: gutshot + overcards",
+        "keyInsight": "Gutshot (4 outs) + overcard pair outs (3 outs) = 7 total outs ≈ 14-22% equity. A ¼-pot bet needs only 19% equity. Combo draws (partial draws + overcards) often clear the price threshold that a single-dimension draw cannot."
+      }
+    },
+    {
+      "id": "river-polarized-overbet-overpair-fold",
+      "title": "Overpair on a connected board — overbet fold",
+      "street": "river",
+      "board": ["Kd", "Jh", "9s", "7c", "3h"],
+      "heroHand": ["Ah", "Ad"],
+      "pot": 120,
+      "bet": 120,
+      "situation": "Pocket aces — an overpair — on a K-J-9-7-3 board. Villain shoves a pot-sized overbet. This board has many two-pair combos (KJ, K9, K7, J9, J7, 97), sets, and even straights (T-8 makes 7-8-9-T-J; Q-T makes 9-T-J-Q-K). Can aces stand up? Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 33,
+        "yourEquityPct": 25,
+        "reasoning": "Pot odds: need 120/360 = 33%. Connected board: ~18 value combos (two pairs: KJ/K9/K7/J9, sets: KK/JJ/99/77, straights: T8 for 7-8-9-T-J, QT for 9-T-J-Q-K) vs ~6 bluffs (missed draws, A-high). Equity = 6/24 = 25%."
+      },
+      "explanation": "25% falls short of the 33% required. Pocket aces are powerful preflop but can become bluff-catchers on connected runouts. K-J-9-7 connects heavily with value betting ranges: sets, two pairs, and two different straights are all possible. This is the key lesson: overpairs must fold to large bets on connected boards.",
+      "gto": {
+        "villainValuePct": 75,
+        "villainBluffPct": 25,
+        "conceptTag": "Connected board: overpair folds",
+        "keyInsight": "Pocket aces lose to any two pair, set, or straight here — and this connected board makes those hands frequent. 75% of villain's range beats aces. A pot-bet needs 33% equity; aces have only 25%. Even premium hands fold on the wrong runout."
+      }
+    },
+    {
+      "id": "turn-two-pair-connected-board-fold",
+      "title": "Two pair on a straight-heavy turn",
+      "street": "turn",
+      "board": ["Ks", "Qd", "Jh", "Tc"],
+      "heroHand": ["Kd", "Qc"],
+      "pot": 80,
+      "bet": 60,
+      "situation": "You have two pair — kings and queens — but the turn is a T, completing K-Q-J-T: four cards to a straight. Any ace makes broadway (A-K-Q-J-T) and any nine makes a nine-high straight. Villain bets ¾ pot. Can two pair hold up here? Call or fold?",
+      "actions": ["Fold", "Call"],
+      "correct": "Fold",
+      "math": {
+        "requiredEquityPct": 30,
+        "yourEquityPct": 20,
+        "reasoning": "Pot odds: need 60/200 = 30%. Straight-heavy board: any A makes broadway (AK,AQ,AJ,AT = many combos) and any 9 makes 9-T-J-Q-K. Value combos ~20 (straights dominate). Only ~5 bluffs. Equity = 5/25 = 20%."
+      },
+      "explanation": "20% misses the 30% required. A K-Q-J-T board is one of the most dangerous turn textures in poker. Any ace or nine completes a straight, and those holdings are extremely common in preflop raising ranges. Two pair is a strong hand on most boards but not this one.",
+      "gto": {
+        "villainValuePct": 80,
+        "villainBluffPct": 20,
+        "conceptTag": "4-straight turn: two pair folds",
+        "keyInsight": "K-Q-J-T means any A or 9 makes a straight — and broadway hands dominate preflop ranges. 80% of the value range beats two pair here. Even with two pair, reading board texture is paramount: this turn is a clear fold for all but the very top of your range."
+      }
     }
   ]
 }

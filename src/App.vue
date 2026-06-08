@@ -6,24 +6,22 @@ import OddsDrill from './components/OddsDrill.vue'
 import EquityDrill from './components/EquityDrill.vue'
 import LearnView from './components/LearnView.vue'
 
-type Mode = 'steal' | 'mid' | 'showdown' | 'odds' | 'equity' | 'learn'
+type Mode = 'preflop' | 'showdown' | 'odds' | 'equity' | 'learn'
 
 const MODES: { id: Mode; label: string; sub: string }[] = [
-  { id: 'steal',    label: 'Steal seat',  sub: 'Open wide'    },
-  { id: 'mid',      label: 'Middle seat', sub: 'Open tight'   },
-  { id: 'showdown', label: 'Scenarios',   sub: 'GTO spots'    },
-  { id: 'odds',     label: 'Pot odds',    sub: 'Break-even %' },
-  { id: 'equity',   label: 'Equity',      sub: 'Count outs'   },
-  { id: 'learn',    label: 'Learn',       sub: 'Guides & charts' },
+  { id: 'preflop',  label: 'Preflop',   sub: 'All seats'    },
+  { id: 'showdown', label: 'Scenarios', sub: 'GTO spots'    },
+  { id: 'odds',     label: 'Pot odds',  sub: 'Break-even %' },
+  { id: 'equity',   label: 'Equity',    sub: 'Count outs'   },
+  { id: 'learn',    label: 'Learn',     sub: 'Guides & charts' },
 ]
 
-const QUIZ_MODES: Mode[] = ['steal', 'mid', 'showdown', 'odds']
+const QUIZ_MODES: Mode[] = ['preflop', 'showdown', 'odds']
 
-const mode = ref<Mode>('steal')
+const mode = ref<Mode>('preflop')
 
 const tally = reactive<Record<Mode, { correct: number; total: number }>>({
-  steal:    { correct: 0, total: 0 },
-  mid:      { correct: 0, total: 0 },
+  preflop:  { correct: 0, total: 0 },
   showdown: { correct: 0, total: 0 },
   odds:     { correct: 0, total: 0 },
   equity:   { correct: 0, total: 0 },
@@ -92,11 +90,7 @@ function handleScore(correct: boolean) {
     </div>
 
     <!-- Drill panels -->
-    <PreflopDrill
-      v-if="mode === 'steal' || mode === 'mid'"
-      :lane-id="mode"
-      @score="handleScore"
-    />
+    <PreflopDrill v-if="mode === 'preflop'" @score="handleScore" />
     <ScenariosDrill v-else-if="mode === 'showdown'" @score="handleScore" />
     <OddsDrill     v-else-if="mode === 'odds'"     @score="handleScore" />
     <EquityDrill   v-else-if="mode === 'equity'" />
