@@ -1,25 +1,18 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import PlayingCard from './PlayingCard.vue'
 import RangeBar from './RangeBar.vue'
 import type { PreflopAction } from '../types'
-import { generateSpot, gradePreflop, laneById, type PreflopFeedback } from '../engine/preflop'
+import { generateSpot, gradePreflop, type PreflopFeedback } from '../engine/preflop'
 
-const props = defineProps<{ laneId: 'steal' | 'mid' }>()
 const emit = defineEmits<{ score: [correct: boolean] }>()
 
-const spot = ref(generateSpot(laneById(props.laneId)))
+const spot = ref(generateSpot())
 const preflopFb = ref<PreflopFeedback | null>(null)
 const animKey = ref(0)
 
-watch(() => props.laneId, (id) => {
-  spot.value = generateSpot(laneById(id))
-  preflopFb.value = null
-  animKey.value++
-})
-
 function newPreflop() {
-  spot.value = generateSpot(laneById(props.laneId))
+  spot.value = generateSpot()
   preflopFb.value = null
   animKey.value++
 }
@@ -37,7 +30,7 @@ const lane = computed(() => spot.value.lane)
 <template>
   <main :key="animKey" class="board animate-fade-in">
     <div class="seat">
-      <span class="seat__name">{{ spot.seat }}</span>
+      <span class="seat__name">{{ lane.seatLabel }}</span>
       <span class="seat__ctx">{{ lane.blurb }}</span>
     </div>
 

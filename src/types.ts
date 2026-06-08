@@ -22,19 +22,18 @@ export interface Card {
 
 // ----- Preflop -------------------------------------------------------------
 
-/** A reduced, "learn two not eight" opening lane. */
+/** One opening position in the preflop engine. */
 export interface Lane {
-  id: 'steal' | 'mid'
-  label: string // human label shown on the tab
-  seatLabel: string // which seat(s) the spot represents
-  blurb: string // one-line description of the lane's job
+  id: 'utg' | 'hj' | 'co' | 'btn' | 'sb'
+  label: string       // short display label, e.g. "BTN"
+  seatLabel: string   // full seat name shown as the header
+  blurb: string       // one-line description of the position
   /** Open the top X% of hands; fold the rest. */
   thresholdPct: number
 }
 
 export interface PreflopSpot {
   lane: Lane
-  seat: string // concrete seat shown for this spot
   hand: RankedHand
   cards: [Card, Card]
 }
